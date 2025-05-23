@@ -1,4 +1,4 @@
-name: Build APK (No License)
+name: Build Unity Game for Android
 
 on:
   push:
@@ -9,12 +9,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: game-ci/unity-builder@v2
+
+      - name: Build with Unity
+        uses: game-ci/unity-builder@v2
         with:
           targetPlatform: Android
-          allowDirtyBuild: true
-          no-verify-license: true
-      - uses: actions/upload-artifact@v3
+          androidExportType: androidAppBundle
+
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v3
         with:
-          name: AndroidBuild
+          name: Android-Build
           path: build/Android
